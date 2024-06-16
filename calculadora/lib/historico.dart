@@ -26,7 +26,7 @@ class CalculadoraHistoricoState extends State<CalculadoraHistorico> {
             children: [
               BotaoSuperior(
                   label: 'Calculadora',
-                  cor: Color(0xFF0060E5),
+                  cor: Color(0xFF2D3440),
                   rota: 'Calculador'),
               BotaoSuperior(
                   label: 'Converter',
@@ -34,7 +34,7 @@ class CalculadoraHistoricoState extends State<CalculadoraHistorico> {
                   rota: 'Converter'),
               BotaoSuperior(
                   label: 'Historico',
-                  cor: Color(0xFF2D3440),
+                  cor: Color(0xFF0060E5),
                   rota: 'Historico'),
             ],
           )

@@ -26,18 +26,45 @@ class CalculadoraConverterState extends State<CalculadoraConverter> {
             children: [
               BotaoSuperior(
                   label: 'Calculadora',
-                  cor: Color(0xFF0060E5),
+                  cor: Color(0xFF2D3440),
                   rota: 'Calculador'),
               BotaoSuperior(
                   label: 'Converter',
-                  cor: Color(0xFF2D3440),
+                  cor: Color(0xFF0060E5),
                   rota: 'Converter'),
               BotaoSuperior(
                   label: 'Historico',
                   cor: Color(0xFF2D3440),
                   rota: 'Historico'),
             ],
-          )
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(height: 40),
+                Container(
+                  padding: EdgeInsets.all(16),
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(width: 20),
+                      ConverterOpcoes(label: 'Idade'),
+                      const SizedBox(width: 20),
+                      ConverterOpcoes(label: 'Área'),
+                      const SizedBox(width: 20),
+                      ConverterOpcoes(label: 'Massa'),
+                      const SizedBox(width: 20),
+                      ConverterOpcoes(label: 'Comprimento'),
+                      const SizedBox(width: 20),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -88,6 +115,37 @@ class BotaoSuperior extends StatelessWidget {
           child: Text(
             label,
             style: TextStyle(fontSize: 16, color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ConverterOpcoes extends StatelessWidget {
+  final String label;
+  final double largura;
+  final double altura;
+
+  ConverterOpcoes({required this.label, this.largura = 120, this.altura = 60});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: largura,
+      height: altura,
+      decoration: BoxDecoration(
+        color: const Color(0xFFB388FF),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: GestureDetector(
+        onTap: () {
+          print('teste');
+        },
+        child: Center(
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 18, color: Colors.white),
           ),
         ),
       ),
