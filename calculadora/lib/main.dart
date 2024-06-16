@@ -1,12 +1,21 @@
+import 'package:calculadora/converter.dart';
+import 'package:calculadora/historico.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(CalculadoraApp());
 }
 
-class CalculadoraApp extends StatelessWidget {
+class CalculadoraApp extends StatefulWidget {
+  const CalculadoraApp({super.key});
+
+  @override
+  CalculadoraAppState createState() => CalculadoraAppState();
+}
+
+class CalculadoraAppState extends State<CalculadoraApp> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -90,9 +99,18 @@ class CalculadoraTela extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              BotaoSuperior(label: 'Calculadora', cor: Color(0xFF0060E5)),
-              BotaoSuperior(label: 'Converter', cor: Color(0xFF2D3440)),
-              BotaoSuperior(label: 'Investimento', cor: Color(0xFF2D3440)),
+              BotaoSuperior(
+                  label: 'Calculadora',
+                  cor: Color(0xFF0060E5),
+                  rota: 'Calculador'),
+              BotaoSuperior(
+                  label: 'Converter',
+                  cor: Color(0xFF2D3440),
+                  rota: 'Converter'),
+              BotaoSuperior(
+                  label: 'Historico',
+                  cor: Color(0xFF2D3440),
+                  rota: 'Historico'),
             ],
           ),
           Expanded(
@@ -258,10 +276,12 @@ class BotaoSuperior extends StatelessWidget {
   final double largura;
   final double altura;
   final Color cor;
+  final String rota;
 
   BotaoSuperior(
       {required this.label,
       required this.cor,
+      this.rota = '',
       this.largura = 120,
       this.altura = 50});
 
@@ -274,10 +294,28 @@ class BotaoSuperior extends StatelessWidget {
         color: cor,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Center(
-        child: Text(
-          label,
-          style: TextStyle(fontSize: 16, color: Colors.white),
+      child: GestureDetector(
+        onTap: () {
+          if (rota == "Converter") {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CalculadoraConverter()));
+          } else if (rota == "Historico") {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CalculadoraHistorico()));
+          } else {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CalculadoraApp()));
+          }
+        },
+        child: Center(
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 16, color: Colors.white),
+          ),
         ),
       ),
     );
