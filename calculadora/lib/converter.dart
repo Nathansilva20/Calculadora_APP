@@ -42,23 +42,76 @@ class CalculadoraConverterState extends State<CalculadoraConverter> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 40),
+                const SizedBox(height: 80),
                 Container(
-                  padding: EdgeInsets.all(16),
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  alignment: Alignment.center,
+                  child: Wrap(
+                    spacing: 20,
+                    runSpacing: 35,
+                    alignment: WrapAlignment.center,
                     children: [
-                      const SizedBox(width: 20),
-                      ConverterOpcoes(label: 'Idade'),
-                      const SizedBox(width: 20),
-                      ConverterOpcoes(label: 'Área'),
-                      const SizedBox(width: 20),
-                      ConverterOpcoes(label: 'Massa'),
-                      const SizedBox(width: 20),
-                      ConverterOpcoes(label: 'Comprimento'),
-                      const SizedBox(width: 20),
+                      ConverterOpcoes(
+                        label: 'Idade',
+                        icon: Icons.calendar_today,
+                        largura: (MediaQuery.of(context).size.width / 3) - 24,
+                        altura: 80,
+                      ),
+                      ConverterOpcoes(
+                        label: 'Área',
+                        icon: Icons.square_foot,
+                        largura: (MediaQuery.of(context).size.width / 3) - 24,
+                        altura: 80,
+                      ),
+                      ConverterOpcoes(
+                        label: 'Massa',
+                        icon: Icons.fitness_center,
+                        largura: (MediaQuery.of(context).size.width / 3) - 24,
+                        altura: 80,
+                      ),
+                      ConverterOpcoes(
+                        label: 'Comprimento',
+                        icon: Icons.straighten,
+                        largura: (MediaQuery.of(context).size.width / 3) - 24,
+                        altura: 80,
+                      ),
+                       ConverterOpcoes(
+                        label: 'Data',
+                        icon: Icons.calendar_month,
+                        largura: (MediaQuery.of(context).size.width / 3) - 24,
+                        altura: 80,
+                      ),
+                       ConverterOpcoes(
+                        label: 'Temperatura',
+                        icon: Icons.thermostat,
+                        largura: (MediaQuery.of(context).size.width / 3) - 24,
+                        altura: 80,
+                      ),
+
+                       ConverterOpcoes(
+                        label: 'Tempo',
+                        icon: Icons.schedule,
+                        largura: (MediaQuery.of(context).size.width / 3) - 24,
+                        altura: 80,
+                      ),
+
+                        ConverterOpcoes(
+                        label: 'Velocidade',
+                        icon: Icons.speed,
+                        largura: (MediaQuery.of(context).size.width / 3) - 24,
+                        altura: 80,
+                      ),
+
+                        ConverterOpcoes(
+                        label: 'Volume',
+                        icon: Icons.view_in_ar_outlined,
+                        largura: (MediaQuery.of(context).size.width / 3) - 24,
+                        altura: 80,
+                      ),
+
+
+
+                      
                     ],
                   ),
                 ),
@@ -124,29 +177,39 @@ class BotaoSuperior extends StatelessWidget {
 
 class ConverterOpcoes extends StatelessWidget {
   final String label;
+  final IconData icon;
   final double largura;
   final double altura;
 
-  ConverterOpcoes({required this.label, this.largura = 120, this.altura = 60});
+  ConverterOpcoes(
+      {required this.label,
+      required this.icon,
+      required this.largura,
+      required this.altura});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: largura,
-      height: altura,
-      decoration: BoxDecoration(
-        color: const Color(0xFFB388FF),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: GestureDetector(
-        onTap: () {
-          print('teste');
-        },
-        child: Center(
-          child: Text(
-            label,
-            style: TextStyle(fontSize: 18, color: Colors.white),
-          ),
+    return GestureDetector(
+      onTap: () {
+        print('teste');
+      },
+      child: Container(
+        width: largura,
+        height: altura,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 36, 
+              color: Colors.white,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: TextStyle(fontSize: 16, color: Colors.white), 
+            ),
+          ],
         ),
       ),
     );
