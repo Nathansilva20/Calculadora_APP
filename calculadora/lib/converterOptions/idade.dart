@@ -29,7 +29,7 @@ class IdadeConverterState extends State<IdadeConverter> {
 
 class CalculadoraProvedor with ChangeNotifier {
   String _input = '';
-  String _output = '0';
+  String _output = '';
 
   String get input => _input;
   String get output => _output;
@@ -67,7 +67,7 @@ class CalculadoraProvedor with ChangeNotifier {
 
   void calculate() {
     try {
-      int eval = 2024 - int.parse(_input);
+      int eval = DateTime.now().year - int.parse(_input);
       _output = eval.toString();
       _input = '';
     } catch (e) {
