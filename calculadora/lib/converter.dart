@@ -1,3 +1,4 @@
+import 'package:calculadora/converterOptions/idade.dart';
 import 'package:calculadora/historico.dart';
 import 'package:calculadora/main.dart';
 import 'package:flutter/material.dart';
@@ -26,15 +27,15 @@ class CalculadoraConverterState extends State<CalculadoraConverter> {
             children: [
               BotaoSuperior(
                   label: 'Calculadora',
-                  cor: Color(0xFF2D3440),
-                  rota: 'Calculador'),
+                  cor: const Color(0xFF2D3440),
+                  rota: 'Calculadora'),
               BotaoSuperior(
                   label: 'Converter',
-                  cor: Color(0xFF0060E5),
+                  cor: const Color(0xFF0060E5),
                   rota: 'Converter'),
               BotaoSuperior(
                   label: 'Historico',
-                  cor: Color(0xFF2D3440),
+                  cor: const Color(0xFF2D3440),
                   rota: 'Historico'),
             ],
           ),
@@ -44,7 +45,7 @@ class CalculadoraConverterState extends State<CalculadoraConverter> {
               children: [
                 const SizedBox(height: 80),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   alignment: Alignment.center,
                   child: Wrap(
                     spacing: 20,
@@ -75,43 +76,36 @@ class CalculadoraConverterState extends State<CalculadoraConverter> {
                         largura: (MediaQuery.of(context).size.width / 3) - 24,
                         altura: 80,
                       ),
-                       ConverterOpcoes(
+                      ConverterOpcoes(
                         label: 'Data',
                         icon: Icons.calendar_month,
                         largura: (MediaQuery.of(context).size.width / 3) - 24,
                         altura: 80,
                       ),
-                       ConverterOpcoes(
+                      ConverterOpcoes(
                         label: 'Temperatura',
                         icon: Icons.thermostat,
                         largura: (MediaQuery.of(context).size.width / 3) - 24,
                         altura: 80,
                       ),
-
-                       ConverterOpcoes(
+                      ConverterOpcoes(
                         label: 'Tempo',
                         icon: Icons.schedule,
                         largura: (MediaQuery.of(context).size.width / 3) - 24,
                         altura: 80,
                       ),
-
-                        ConverterOpcoes(
+                      ConverterOpcoes(
                         label: 'Velocidade',
                         icon: Icons.speed,
                         largura: (MediaQuery.of(context).size.width / 3) - 24,
                         altura: 80,
                       ),
-
-                        ConverterOpcoes(
+                      ConverterOpcoes(
                         label: 'Volume',
                         icon: Icons.view_in_ar_outlined,
                         largura: (MediaQuery.of(context).size.width / 3) - 24,
                         altura: 80,
                       ),
-
-
-
-                      
                     ],
                   ),
                 ),
@@ -153,21 +147,23 @@ class BotaoSuperior extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => CalculadoraConverter()));
+                    builder: (context) => const CalculadoraConverter()));
           } else if (rota == "Historico") {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => CalculadoraHistorico()));
+                    builder: (context) => const CalculadoraHistorico()));
           } else {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CalculadoraApp()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CalculadoraApp()));
           }
         },
         child: Center(
           child: Text(
             label,
-            style: TextStyle(fontSize: 16, color: Colors.white),
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
         ),
       ),
@@ -191,7 +187,10 @@ class ConverterOpcoes extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('teste');
+        if (label == "Idade") {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const IdadeConverter()));
+        }
       },
       child: Container(
         width: largura,
@@ -201,13 +200,13 @@ class ConverterOpcoes extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 36, 
+              size: 36,
               color: Colors.white,
             ),
             const SizedBox(height: 8),
             Text(
               label,
-              style: TextStyle(fontSize: 16, color: Colors.white), 
+              style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
           ],
         ),

@@ -1,28 +1,27 @@
 import 'package:calculadora/converter.dart';
 import 'package:calculadora/historico.dart';
 import 'package:flutter/material.dart';
-import 'package:math_expressions/math_expressions.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(CalculadoraApp());
+  runApp(const IdadeConverter());
 }
 
-class CalculadoraApp extends StatefulWidget {
-  const CalculadoraApp({super.key});
+class IdadeConverter extends StatefulWidget {
+  const IdadeConverter({super.key});
 
   @override
-  CalculadoraAppState createState() => CalculadoraAppState();
+  IdadeConverterState createState() => IdadeConverterState();
 }
 
-class CalculadoraAppState extends State<CalculadoraApp> {
+class IdadeConverterState extends State<IdadeConverter> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => CalculadoraProvedor(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: CalculadoraTela(),
+        home: IdadeConverterTela(),
       ),
     );
   }
@@ -68,11 +67,7 @@ class CalculadoraProvedor with ChangeNotifier {
 
   void calculate() {
     try {
-      Parser parser = Parser();
-      Expression exp =
-          parser.parse(_input.replaceAll('×', '*').replaceAll('÷', '/'));
-      ContextModel cm = ContextModel();
-      double eval = exp.evaluate(EvaluationType.REAL, cm);
+      int eval = 2024 - int.parse(_input);
       _output = eval.toString();
       _input = '';
     } catch (e) {
@@ -82,7 +77,7 @@ class CalculadoraProvedor with ChangeNotifier {
   }
 }
 
-class CalculadoraTela extends StatelessWidget {
+class IdadeConverterTela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final calculadoraProvedor = Provider.of<CalculadoraProvedor>(context);
@@ -91,7 +86,7 @@ class CalculadoraTela extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         elevation: 0,
-        toolbarHeight: 0, // Oculta a barra de ferramentas
+        toolbarHeight: 0,
       ),
       backgroundColor: Colors.black,
       body: Column(
@@ -101,55 +96,56 @@ class CalculadoraTela extends StatelessWidget {
             children: [
               BotaoSuperior(
                   label: 'Calculadora',
-                  cor: Color(0xFF0060E5),
+                  cor: const Color(0xFF2D3440),
                   rota: 'Calculadora'),
               BotaoSuperior(
                   label: 'Converter',
-                  cor: Color(0xFF2D3440),
+                  cor: const Color(0xFF0060E5),
                   rota: 'Converter'),
               BotaoSuperior(
                   label: 'Historico',
-                  cor: Color(0xFF2D3440),
+                  cor: const Color(0xFF2D3440),
                   rota: 'Historico'),
             ],
           ),
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
-                    height:
-                        160), // Adiciona um espaço entre a parte superior e os botões
-                Container(
-                  padding: EdgeInsets.all(16),
-                  alignment: Alignment.centerRight,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        calculadoraProvedor.output,
-                        style: TextStyle(fontSize: 50, color: Colors.white),
-                      ),
-                      Text(
-                        calculadoraProvedor.input,
-                        style: TextStyle(fontSize: 30, color: Colors.white),
-                      ),
-                    ],
-                  ),
+                const SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Ano",
+                      style: TextStyle(fontSize: 30, color: Colors.white),
+                    ),
+                    Text(
+                      calculadoraProvedor.input,
+                      style: const TextStyle(fontSize: 30, color: Colors.white),
+                    ),
+                  ],
                 ),
-                Spacer(), // Empurra os botões inferiores para a parte inferior da tela
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Idade",
+                      style: TextStyle(fontSize: 30, color: Colors.white),
+                    ),
+                    Text(
+                      calculadoraProvedor.output,
+                      style: const TextStyle(fontSize: 30, color: Colors.white),
+                    ),
+                  ],
+                ),
+                const Spacer(),
                 Row(
                   children: [
                     BotaoCalculadora(
                         label: 'C', onTap: calculadoraProvedor.clear),
                     BotaoCalculadora(
                         label: '⌫', onTap: calculadoraProvedor.delete),
-                    BotaoCalculadora(
-                        label: '%', onTap: calculadoraProvedor.inputPercentage),
-                    BotaoCalculadora(
-                        label: '÷',
-                        onTap: () => calculadoraProvedor.inputOperator('/')),
                   ],
                 ),
                 Row(
@@ -163,9 +159,6 @@ class CalculadoraTela extends StatelessWidget {
                     BotaoCalculadora(
                         label: '9',
                         onTap: () => calculadoraProvedor.inputNumber('9')),
-                    BotaoCalculadora(
-                        label: '×',
-                        onTap: () => calculadoraProvedor.inputOperator('*')),
                   ],
                 ),
                 Row(
@@ -179,9 +172,6 @@ class CalculadoraTela extends StatelessWidget {
                     BotaoCalculadora(
                         label: '6',
                         onTap: () => calculadoraProvedor.inputNumber('6')),
-                    BotaoCalculadora(
-                        label: '-',
-                        onTap: () => calculadoraProvedor.inputOperator('-')),
                   ],
                 ),
                 Row(
@@ -195,9 +185,6 @@ class CalculadoraTela extends StatelessWidget {
                     BotaoCalculadora(
                         label: '3',
                         onTap: () => calculadoraProvedor.inputNumber('3')),
-                    BotaoCalculadora(
-                        label: '+',
-                        onTap: () => calculadoraProvedor.inputOperator('+')),
                   ],
                 ),
                 Row(
@@ -205,9 +192,6 @@ class CalculadoraTela extends StatelessWidget {
                     BotaoCalculadora(
                         label: '0',
                         onTap: () => calculadoraProvedor.inputNumber('0')),
-                    BotaoCalculadora(
-                        label: '.',
-                        onTap: () => calculadoraProvedor.inputNumber('.')),
                     BotaoCalculadora(
                         label: '=', onTap: calculadoraProvedor.calculate),
                   ],
@@ -233,13 +217,13 @@ class BotaoCalculadora extends StatelessWidget {
       child: GestureDetector(
         onTap: () => onTap(),
         child: Container(
-          margin: EdgeInsets.all(1),
-          padding: EdgeInsets.all(24),
+          margin: const EdgeInsets.all(1),
+          padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
             color: label == 'C' || label == '⌫' || label == '%'
-                ? Color(0xFF363E4D)
+                ? const Color(0xFF363E4D)
                 : label == '='
-                    ? Color(0xFFE0E6EF)
+                    ? const Color(0xFFE0E6EF)
                     : label == '0' ||
                             label == '.' ||
                             label == '1' ||
@@ -251,8 +235,8 @@ class BotaoCalculadora extends StatelessWidget {
                             label == '7' ||
                             label == '8' ||
                             label == '9'
-                        ? Color(0xFF242933)
-                        : Color.fromRGBO(0, 96, 229, 1),
+                        ? const Color(0xFF242933)
+                        : const Color.fromRGBO(0, 96, 229, 1),
             borderRadius: label == '='
                 ? BorderRadius.circular(200)
                 : BorderRadius.circular(8),
@@ -300,21 +284,23 @@ class BotaoSuperior extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => CalculadoraConverter()));
+                    builder: (context) => const CalculadoraConverter()));
           } else if (rota == "Historico") {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => CalculadoraHistorico()));
+                    builder: (context) => const CalculadoraHistorico()));
           } else {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CalculadoraApp()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const IdadeConverter()));
           }
         },
         child: Center(
           child: Text(
             label,
-            style: TextStyle(fontSize: 16, color: Colors.white),
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
         ),
       ),
