@@ -4,24 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const IdadeConverter());
+  runApp(const VelocidadeConverter());
 }
 
-class IdadeConverter extends StatefulWidget {
-  const IdadeConverter({super.key});
+class VelocidadeConverter extends StatefulWidget {
+  const VelocidadeConverter({super.key});
 
   @override
-  IdadeConverterState createState() => IdadeConverterState();
+  VelocidadeConverterState createState() => VelocidadeConverterState();
 }
 
-class IdadeConverterState extends State<IdadeConverter> {
+class VelocidadeConverterState extends State<VelocidadeConverter> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => CalculadoraProvedor(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: IdadeConverterTela(),
+        home: VelocidadeConverterTela(),
       ),
     );
   }
@@ -29,32 +29,23 @@ class IdadeConverterState extends State<IdadeConverter> {
 
 class CalculadoraProvedor with ChangeNotifier {
   String _input = '';
-  String _output = '';
+  String _outputKmSeconds = '0';
+  String _outputKmHour = '0';
 
   String get input => _input;
-  String get output => _output;
+  String get outputKmSeconds => _outputKmSeconds;
+  String get outputKmHour => _outputKmHour;
 
   void inputNumber(String number) {
     _input += number;
     notifyListeners();
   }
 
-  void inputOperator(String operator) {
-    _input += operator;
-    notifyListeners();
-  }
-
-  void inputPercentage() {
-    if (_input.isNotEmpty) {
-      double value = double.parse(_input) / 100;
-      _input = value.toString();
-      notifyListeners();
-    }
-  }
-
   void clear() {
     _input = '';
-    _output = '0';
+    _outputKmSeconds = '0';
+    _outputKmHour = '0';
+
     notifyListeners();
   }
 
@@ -67,16 +58,19 @@ class CalculadoraProvedor with ChangeNotifier {
 
   void calculate() {
     try {
-      int eval = DateTime.now().year - int.parse(_input);
-      _output = eval.toString();
+      double evalKmSeconds = int.parse(_input) / 1000;
+      double evalKmHour = int.parse(_input) * 3.6;
+      _outputKmSeconds = evalKmSeconds.toString();
+      _outputKmHour = evalKmHour.toString();
     } catch (e) {
-      _output = 'Error';
+      _outputKmSeconds = 'Error';
+      _outputKmHour = 'Error';
     }
     notifyListeners();
   }
 }
 
-class IdadeConverterTela extends StatelessWidget {
+class VelocidadeConverterTela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final calculadoraProvedor = Provider.of<CalculadoraProvedor>(context);
@@ -116,7 +110,7 @@ class IdadeConverterTela extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Ano",
+                      "Metros por Segundo",
                       style: TextStyle(fontSize: 30, color: Colors.white),
                     ),
                     Text(
@@ -129,11 +123,24 @@ class IdadeConverterTela extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Idade",
+                      "Km por Segundo",
                       style: TextStyle(fontSize: 30, color: Colors.white),
                     ),
                     Text(
-                      calculadoraProvedor.output,
+                      calculadoraProvedor.outputKmSeconds,
+                      style: const TextStyle(fontSize: 30, color: Colors.white),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Km por Hora",
+                      style: TextStyle(fontSize: 30, color: Colors.white),
+                    ),
+                    Text(
+                      calculadoraProvedor.outputKmHour,
                       style: const TextStyle(fontSize: 30, color: Colors.white),
                     ),
                   ],
@@ -293,7 +300,7 @@ class BotaoSuperior extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const IdadeConverter()));
+                    builder: (context) => const VelocidadeConverter()));
           }
         },
         child: Center(

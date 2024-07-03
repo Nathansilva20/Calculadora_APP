@@ -1,4 +1,6 @@
 import 'package:calculadora/converterOptions/idade.dart';
+import 'package:calculadora/converterOptions/tempo.dart';
+import 'package:calculadora/converterOptions/velocidade.dart';
 import 'package:calculadora/historico.dart';
 import 'package:calculadora/main.dart';
 import 'package:flutter/material.dart';
@@ -58,15 +60,15 @@ class CalculadoraConverterState extends State<CalculadoraConverter> {
                         largura: (MediaQuery.of(context).size.width / 3) - 24,
                         altura: 80,
                       ),
-                       ConverterOpcoes(
+                      ConverterOpcoes(
                         label: 'Tempo',
                         icon: Icons.schedule,
                         largura: (MediaQuery.of(context).size.width / 3) - 24,
                         altura: 80,
                       ),
                       ConverterOpcoes(
-                        label: 'Imc',
-                        icon: Icons.fitness_center,
+                        label: 'Velocidade',
+                        icon: Icons.speed,
                         largura: (MediaQuery.of(context).size.width / 3) - 24,
                         altura: 80,
                       ),
@@ -154,6 +156,14 @@ class ConverterOpcoes extends StatelessWidget {
         if (label == "Idade") {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const IdadeConverter()));
+        } else if (label == "Tempo") {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const TempoConverter()));
+        } else if (label == "Velocidade") {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const VelocidadeConverter()));
         }
       },
       child: Container(
