@@ -1,5 +1,5 @@
 import 'package:calculadora/converter.dart';
-import 'package:calculadora/historico.dart';
+import 'package:calculadora/investimento.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:provider/provider.dart';
@@ -108,9 +108,9 @@ class CalculadoraTela extends StatelessWidget {
                   cor: Color(0xFF2D3440),
                   rota: 'Converter'),
               BotaoSuperior(
-                  label: 'Historico',
+                  label: 'Investimento',
                   cor: Color(0xFF2D3440),
-                  rota: 'Historico'),
+                  rota: 'Investimento'),
             ],
           ),
           Expanded(
@@ -301,11 +301,11 @@ class BotaoSuperior extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => CalculadoraConverter()));
-          } else if (rota == "Historico") {
+          } else if (rota == "Investimento") {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => CalculadoraHistorico()));
+                    builder: (context) => CalculadoraInvestimento()));
           } else {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => CalculadoraApp()));

@@ -1,7 +1,7 @@
 import 'package:calculadora/converterOptions/idade.dart';
 import 'package:calculadora/converterOptions/tempo.dart';
 import 'package:calculadora/converterOptions/velocidade.dart';
-import 'package:calculadora/historico.dart';
+import 'package:calculadora/investimento.dart';
 import 'package:calculadora/main.dart';
 import 'package:flutter/material.dart';
 
@@ -36,9 +36,9 @@ class CalculadoraConverterState extends State<CalculadoraConverter> {
                   cor: const Color(0xFF0060E5),
                   rota: 'Converter'),
               BotaoSuperior(
-                  label: 'Historico',
+                  label: 'Investimento',
                   cor: const Color(0xFF2D3440),
-                  rota: 'Historico'),
+                  rota: 'Investimento'),
             ],
           ),
           Expanded(
@@ -114,11 +114,11 @@ class BotaoSuperior extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const CalculadoraConverter()));
-          } else if (rota == "Historico") {
+          } else if (rota == "Investimento") {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const CalculadoraHistorico()));
+                    builder: (context) => const CalculadoraInvestimento()));
           } else {
             Navigator.push(
                 context,
